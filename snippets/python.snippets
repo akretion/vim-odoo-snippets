@@ -1,74 +1,38 @@
-snippet #!
-	#!/usr/bin/env python
-snippet coding
-	# -*- coding: ${1:utf-8} -*-
-snippet imp
-	import ${1:module}
-snippet from
-	from ${1:module} import ${2:class}
-snippet osv <= 6.0
-	from osv import osv
-	from osv import fields
+snippet imodel
+	from openerp.osv import fields, orm
 	${1}
-snippet osv >= 6.1
-	from openerp.osv import osv
-	from openerp.osv import fields
+snippet ifield
+	from openerp.osv import fields, orm
 	${1}
-# Module Docstring
-snippet docs
-	'''
-	File: ${1:`Filename('$1.py', 'foo.py')`}
-	Author: ${2:`g:snips_author`}
-	Description: ${3}
-	'''
-snippet wh
-	while ${1:condition}:
-		${2:# code...}
-snippet for
-	for ${1:needle} in ${2:haystack}:
-		${3:# code...}
-# New Class
-snippet cl
-	class ${1:ClassName}(${2:object}):
-		"""${3:docstring for $1}"""
-		def __init__(self, ${4:arg}):
-			${5:super($1, self).__init__()}
-			self.$4 = $4
-			${6}
-snippet copyright
-	##############################################################################
+snippet start
+	# -*- coding: utf-8 -*-
+	###############################################################################
 	#
-	#    ${1:ModuleName} module for OpenERP, ${2:Description}
-	#    Copyright (C) ${3:200X} ${4:Company} (<http://${5:website}>) ${6:author}
+	#   ${1:modulename} for OpenERP 
+	#   Copyright (C) 2013 Akretion (http://www.akretion.com).
+	#   @author Sébastien BEAU <sebastien.beau@akretion.com>
 	#
-	#    This file is a part of $1
+	#   This program is free software: you can redistribute it and/or modify
+	#   it under the terms of the GNU Affero General Public License as
+	#   published by the Free Software Foundation, either version 3 of the
+	#   License, or (at your option) any later version.
 	#
-	#    $1 is free software: you can redistribute it and/or modify
-	#    it under the terms of the GNU General Public License as published by
-	#    the Free Software Foundation, either version 3 of the License, or
-	#    (at your option) any later version.
+	#   This program is distributed in the hope that it will be useful,
+	#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+	#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	#   GNU Affero General Public License for more details.
 	#
-	#    $1 is distributed in the hope that it will be useful,
-	#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-	#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	#    GNU General Public License for more details.
+	#   You should have received a copy of the GNU Affero General Public License
+	#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#
-	#    You should have received a copy of the GNU General Public License
-	#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-	#
-	##############################################################################
-	${7}
-snippet config
-	# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-# this snippet is usefull to clear the rule cache
-# specialy with OpenObject 5.2 and multi company
-snippet rule
-	self.pool.get('ir.rule').domain_get.clear_cache(cr.dbname)
+	###############################################################################
+	${2}
+
 #
 # Define class for OpenObject
 #
 snippet oo Open Object\Model
-	class ${1:ClassName}(osv.osv):
+	class ${1:ClassName}(orm.Model):
 		_name = '${2:ObjectName}'
 		_description = '${3}'
 		
@@ -76,17 +40,13 @@ snippet oo Open Object\Model
 			${4}
 		}
 	
-	$1()
-	
 snippet ooi Open Object\Model Inherit
-	class ${1:ClassName}(osv.osv):
+	class ${1:ClassName}(orm.Model):
 		_inherit = '${2:ObjectName}'
 		
 		_columns = {
 			${3}
 		}
-	
-	$1()
 	
 snippet oom Open Object\Wizard
 	class ${1:ClassName}(osv.osv_memory):
@@ -162,9 +122,7 @@ snippet required
 	required=True, ${1}
 snippet translate argument
 	translate=True, ${1}
-snippet translate import OpenERP <= 6.0
-	from tools.translate import _
-snippet translate import OpenERP >= 6.1
+snippet translate
 	from openerp.tools.translate import _
 snippet dp
 	digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}
@@ -595,9 +553,6 @@ snippet ifcontext
 	if context is None:
 	    context = {}
 	${1}
-snippet pdb
-	import pdb
-	pdb.set_trace()
 # workflow
 snippet trg trg_write
 	wf_service = netsvc.LocalService("workflow")
