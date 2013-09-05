@@ -4,11 +4,15 @@ snippet imodel
 snippet ifield
 	from openerp.osv import fields, orm
 	${1}
+snippet isuperuser
+	from openerp import SUPERUSER_ID
+snippet idp
+	import openerp.addons.decimal_precision as dp
 snippet start
 	# -*- coding: utf-8 -*-
 	###############################################################################
 	#
-	#   ${1:modulename} for OpenERP 
+	#   Module for OpenERP 
 	#   Copyright (C) 2013 Akretion (http://www.akretion.com).
 	#   @author Sébastien BEAU <sebastien.beau@akretion.com>
 	#
@@ -26,7 +30,7 @@ snippet start
 	#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#
 	###############################################################################
-	${2}
+	${1}
 
 #
 # Define class for OpenObject
@@ -141,7 +145,14 @@ snippet ondelete OnDelete Cascade
 snippet ondelete OnDelete Set Null
 	ondelete='set null', ${1}
 snippet store
-	store=True, ${1}
+	store={
+		'${1:Model}': (${2:get_model_ids_to_update}, [${3:fields}], ${4:Priority}),
+		},
+snippet store lambda
+	store={
+		'${1:Model}': (lambda self, cr, uid, ids, c={}: ids, [${2:fields}], ${3:Priority}),
+		},
+
 #
 # Define function in osv.osv
 #

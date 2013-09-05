@@ -146,10 +146,7 @@ snippet wizard <wizard/>
 	    name="${4:wizard_name}"/>
 snippet wizard transient menu
 	<record id="view_${1:model}_form" model="ir.ui.view">
-	    <field name="name">$2.form</field>
 	    <field name="model">${2:Model}</field>
-	    <field name="type">form</field>
-	    <field name="priority" eval="8"/>
 	    <field name="arch" type="xml">
 		<form string="${3:Label}">
 		    <field name="${4:name}" select="1"/>
@@ -181,7 +178,6 @@ snippet wizard transient menu
 snippet wizard transient toolbar
 	<record id="view_${1:model}_form" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="${3:Label}" version="7.0">
 			<separator string="$3"/>
@@ -217,7 +213,6 @@ snippet wizard transient toolbar
 snippet iview
 	<record id="view_${1:model}_$3" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">${3:Type}</field>
 		<field name="inherit_id" ref="${4:View to inherit}" />
 	    <field name="arch" type="xml">
 			${5}
@@ -226,7 +221,6 @@ snippet iview
 snippet view form
 	<record id="view_${1:model}_form" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="${3:Label}">
 		    <field name="${4:name}" select="1"/>
@@ -236,7 +230,6 @@ snippet view form
 snippet view tree
 	<record id="view_${1:model}_tree" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">tree</field>
 	    <field name="arch" type="xml">
 		<tree string="${3:Label}">
 		    <field name="${4:name}"/>
@@ -246,7 +239,6 @@ snippet view tree
 snippet view search
 	<record id="view_${1:model}_search" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">search</field>
 	    <field name="arch" type="xml">
 		<search string="${3:Label}">
 		    <field name="${4:name}" select="True"/>
@@ -256,7 +248,6 @@ snippet view search
 snippet view both (tree, form)
 	<record id="view_${1:model}_tree" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">tree</field>
 	    <field name="arch" type="xml">
 		<tree string="${3:Label}">
 		    <field name="${4:name}"/>
@@ -266,7 +257,6 @@ snippet view both (tree, form)
 	
 	<record id="view_$1_form" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="$3">
 		    <field name="$4" select="1"/>
@@ -276,7 +266,6 @@ snippet view both (tree, form)
 snippet view both (tree, form, search)
 	<record id="view_${1:model}_tree" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">tree</field>
 	    <field name="arch" type="xml">
 		<tree string="${3:Label}">
 		    <field name="${4:name}"/>
@@ -286,7 +275,6 @@ snippet view both (tree, form, search)
 	
 	<record id="view_$1_form" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="$3">
 		    <field name="$4" select="1"/>
@@ -295,7 +283,6 @@ snippet view both (tree, form, search)
 	</record>
 	<record id="view_$1_search" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">search</field>
 	    <field name="arch" type="xml">
 		<search string="$3">
 		    <field name="$4" select="True"/>
@@ -305,7 +292,6 @@ snippet view both (tree, form, search)
 snippet view both (tree, form) + Action + Menu
 	<record id="view_${1:model}_tree" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">tree</field>
 	    <field name="arch" type="xml">
 		<tree string="${3:Label}">
 		    <field name="${4:name}"/>
@@ -315,7 +301,6 @@ snippet view both (tree, form) + Action + Menu
 	
 	<record id="view_$1_form" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="$3">
 		    <field name="$4" select="1"/>
@@ -354,7 +339,6 @@ snippet view both (tree, form) + Action + Menu
 snippet view both (tree, form, search) + Action + Menu
 	<record id="view_${1:model}_tree" model="ir.ui.view">
 	    <field name="model">${2:Model}</field>
-	    <field name="type">tree</field>
 	    <field name="arch" type="xml">
 		<tree string="${3:Label}">
 		    <field name="${4:name}"/>
@@ -364,7 +348,6 @@ snippet view both (tree, form, search) + Action + Menu
 	
 	<record id="view_$1_form" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		<form string="$3">
 		    <field name="$4" select="1"/>
@@ -374,7 +357,6 @@ snippet view both (tree, form, search) + Action + Menu
 	
 	<record id="view_$1_search" model="ir.ui.view">
 	    <field name="model">$2</field>
-	    <field name="type">search</field>
 	    <field name="arch" type="xml">
 		<search string="$3">
 		    <field name="$4" select="True"/>
