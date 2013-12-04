@@ -1,6 +1,8 @@
 snippet imodel
 	from openerp.osv import fields, orm
 	${1}
+snippet fi
+	from . import ${1}
 snippet ifield
 	from openerp.osv import fields, orm
 	${1}
@@ -8,6 +10,8 @@ snippet isuperuser
 	from openerp import SUPERUSER_ID
 snippet idp
 	import openerp.addons.decimal_precision as dp
+snippet iconfig
+	from openerp.tools import config
 snippet start
 	# -*- coding: utf-8 -*-
 	###############################################################################
@@ -31,6 +35,28 @@ snippet start
 	#
 	###############################################################################
 	${1}
+
+snippet openerp
+	{'name': '${1:module_name}',
+	 'version': '0.0.1',
+	 'author': 'Akretion',
+	 'website': 'www.akretion.com',
+	 'license': 'AGPL-3',
+	 'category': 'Generic Modules',
+	 'description': """
+	 
+	 """,
+	 'depends': [
+	     '${2:module_dependency}',
+	 ],
+	 'data': [
+	     '${3:data_path}',
+	 ],
+	 'installable': True,
+	 'application': True,
+	}
+
+
 
 #
 # Define class for OpenObject
@@ -98,11 +124,10 @@ snippet fields fields.one2many
 	'${1:fieldname}_ids': fields.one2many('${2:ObjectName}', '${3:fieldname}_id', '${4:Label}', ${6}help='${5:Help note}'),${7}
 snippet fields fields.function
 	'${1:fieldname}': fields.function(${2:FunctionName},
-					    method=${3:True},
-					    string='${4:label}',
-					    type='${5:float}',
-					    store=${6:False},${8}
-					    help='${7:Help note}'),${9}
+	    string='${4:label}',
+	    type='${5:float}',
+	    store=${6:False},${8}
+	    help='${7:Help note}'),${9}
 snippet fields fields.related
 	'${1:fieldname}': fields.related('${2:field in}', '${3:field rel}', type='${4:many2one}', ${5:relation='res.partner'},
 					    string='${6:Label}', ${8}help='${7:Help note}'),${9}
@@ -126,7 +151,7 @@ snippet required
 	required=True, ${1}
 snippet translate argument
 	translate=True, ${1}
-snippet translate
+snippet itranslate
 	from openerp.tools.translate import _
 snippet dp
 	digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}

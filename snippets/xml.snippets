@@ -1,9 +1,10 @@
-snippet <?
+snippet start
 	<?xml version="1.0" encoding="UTF-8"?>
-snippet oerp
 	<openerp>
 	    <data>
-	    $0
+
+	    	${1}
+
 	    </data>
 	</openerp>
 snippet field <field ... />
@@ -211,8 +212,8 @@ snippet wizard transient toolbar
 	    <field name="value" eval="'ir.actions.act_window,' + str(ref('action_$1_view'))" />
 	</record>
 snippet iview
-	<record id="view_${1:model}_$3" model="ir.ui.view">
-	    <field name="model">${2:Model}</field>
+	<record id="view_${1:model}_${2:form}" model="ir.ui.view">
+	    <field name="model">${3:Model}</field>
 		<field name="inherit_id" ref="${4:View to inherit}" />
 	    <field name="arch" type="xml">
 			${5}
@@ -399,6 +400,22 @@ snippet act_window
 	    res_model="${3:destination_model}"
 	    src_model="${4:source_model}"
 	    domain="[('${5:field}', '${6:operator}', ${7:active_id})]"/>
+snippet act_view
+	<record model="ir.actions.act_window.view" id="act_open_${1:model}_view_form">
+	    <field name="act_window_id" ref="act_open_$1_view"/>
+	    <field name="sequence" eval="20"/>
+	    <field name="view_mode">form</field>
+	    <field name="view_id" ref="view_$1_form"/>
+	</record>
+	
+	<record model="ir.actions.act_window.view" id="act_open_$1_view_tree">
+	    <field name="act_window_id" ref="act_open_$1_view"/>
+	    <field name="sequence" eval="10"/>
+	    <field name="view_mode">tree</field>
+	    <field name="view_id" ref="view_$1_tree"/>
+	</record>
+
+
 snippet xpath after
 	<xpath expr="//field[@${1:name}='${2:field}']" position="after">
 	    <field name="${3:name}"/>
