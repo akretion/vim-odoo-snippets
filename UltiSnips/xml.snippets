@@ -1,3 +1,8 @@
+global !p
+def format_snake(name):
+    return name.replace('.', '_')
+endglobal
+
 snippet start
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
@@ -322,11 +327,11 @@ or
 endsnippet
 
 snippet iview
-<record id="view_${1:model}_${2:form}" model="ir.ui.view">
-    <field name="model">${3:Model}</field>
-<field name="inherit_id" ref="${4:View to inherit}" />
+<record id="`!p snip.rv=format_snake(t[1])`_view_${2:form}" model="ir.ui.view">
+    <field name="model">${1:model}</field>
+    <field name="inherit_id" ref="${4:View to inherit}" />
     <field name="arch" type="xml">
-${5}
+        ${5}
     </field>
 </record>
 endsnippet

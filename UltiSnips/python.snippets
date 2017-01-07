@@ -1,3 +1,11 @@
+global !p
+def format_description(name):
+    return name.replace('_', ' ').replace('.', ' ').title()
+
+def format_class(name):
+    return name.replace('.', ' ').title().replace(' ', '')
+endglobal
+
 snippet imodel
 from openerp import models
 ${1}
@@ -32,40 +40,32 @@ snippet start
 ${1}
 endsnippet
 
-snippet openerp
-{'name': '${1:module_name}',
- 'version': '0.0.1',
- 'author': 'Akretion',
- 'website': 'www.akretion.com',
- 'license': 'AGPL-3',
- 'category': 'Generic Modules',
- 'description': """
- 
- """,
- 'depends': [
-     '${2:module_dependency}',
- ],
- 'data': [
-     '${3:data_path}',
- ],
- 'installable': True,
- 'application': True,
+snippet module
+{
+    "name": "${1:Module name}",
+    "summary": "${2:Module summary}",
+    "version": "${3: 10.0}.1.0.0",
+    "category": "${4:Uncategorized}",
+    "website": "${5:www.akretion.com}",
+    "author": "${6: Akretion}",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
+    },
+    "depends": [
+        "${7:base}",
+    ],
+    "data": [${8}
+    ],
+    "demo": [${9}
+    ],
+    "qweb": [${10}
+    ]
 }
-
-
-
-#
-# Define class for OpenObject
-#
 endsnippet
-
-global !p
-def format_description(name):
-    return name.replace('.', ' ').title()
-
-def format_class(name):
-    return format_description(name).replace(' ', '')
-endglobal
 
 snippet oo "Odoo Model"
 class `!p snip.rv=format_class(t[1])`(models.Model):
@@ -113,7 +113,7 @@ snippet ffl "float"
 endsnippet
 
 snippet fbo "boolean"
-'${1:fieldname}': fields.boolean('${2:Label}', ${4}help='${3:Help note}'),${5}
+${1:fieldname} = fields.Boolean(${2:})${3}
 endsnippet
 
 snippet fdt "date"
@@ -138,7 +138,9 @@ snippet st "selection tuple"
 endsnippet
 
 snippet fm2o "many2one"
-'${1:fieldname}_id': fields.many2one('${2:ObjectName}', '${3:Label}', ${5}help='${4:Help note}'),${6}
+${1:fieldname}_id = fields.Many2one(
+    '${2:ObjectName}',
+    '`!p snip.rv=format_description(t[1])`'${3})${4}
 endsnippet
 
 snippet fm2m "many2many"
@@ -146,7 +148,10 @@ snippet fm2m "many2many"
 endsnippet
 
 snippet fo2m "one2many"
-'${1:fieldname}_ids': fields.one2many('${2:ObjectName}', '${3:fieldname}_id', '${4:Label}', ${6}help='${5:Help note}'),${7}
+${1:fieldname}_ids = fields.One2many(
+    '${2:object.name}',
+    '${3:fieldname}_id',
+    '`!p snip.rv=format_description(t[1])`'${4})${5}
 endsnippet
 
 snippet fpr "property"
