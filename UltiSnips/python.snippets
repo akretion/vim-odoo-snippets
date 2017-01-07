@@ -1,5 +1,5 @@
 snippet imodel
-from openerp.osv import fields, orm
+from openerp import models
 ${1}
 endsnippet
 
@@ -8,7 +8,7 @@ from . import ${1}
 endsnippet
 
 snippet ifield
-from openerp.osv import fields, orm
+from openerp import api, fields, models
 ${1}
 endsnippet
 
@@ -26,7 +26,7 @@ endsnippet
 
 snippet start
 # -*- coding: utf-8 -*-
-# Copyright 2016 Akretion (http://www.akretion.com).
+# Copyright 2017 Akretion (http://www.akretion.com).
 # @author Sébastien BEAU <sebastien.beau@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 ${1}
@@ -59,124 +59,138 @@ snippet openerp
 #
 endsnippet
 
-snippet oo "Odoo Model"
-class ${1:ClassName}(orm.Model):
-_name = '${2:ObjectName}'
-_description = '${3}'
+global !p
+def format_description(name):
+    return name.replace('.', ' ').title()
 
-_columns = {
-${4}
-}
+def format_class(name):
+    return format_description(name).replace(' ', '')
+endglobal
+
+snippet oo "Odoo Model"
+class `!p snip.rv=format_class(t[1])`(models.Model):
+    _name = '${1:ObjectName}'
+    _description = '`!p snip.rv=format_description(t[1])`'
+
+    ${2}
 
 endsnippet
 
 snippet ooi "Odoo Model Inherit"
-class ${1:ClassName}(orm.Model):
-_inherit = '${2:ObjectName}'
+class `!p snip.rv=format_class(t[1])`(models.Model):
+    _inherit = '${1:ObjectName}'
 
-_columns = {
+    ${2}
+
+endsnippet
+
+snippet oow "Odoo Wizard"
+class `!p snip.rv=format_class(t[1])`(models.TransientModel):
+    _name = '${1:ObjectName}'
+    _description = '`!p snip.rv=format_description(t[1])`'
+
+    ${2}
+endsnippet
+
+snippet oowi "Odoo Wizard Inherit"
+class `!p snip.rv=format_class(t[1])`(models.TransientModel):
+    _inherit = '${1:ObjectName}'
+
+    ${2}
+endsnippet
+
+snippet fch "char"
+${1:fieldname} = fields.Char(${2})
 ${3}
-}
-
 endsnippet
 
-snippet oom "Odoo Wizard"
-class ${1:ClassName}(osv.osv_memory):
-_name = '${2:ObjectName}'
-_description = '${3:Description}'
-
-_columns = {
-${4}
-}
-
-$1()
-
-endsnippet
-
-snippet oomi "Odoo Wizard Inherit"
-class ${1:ClassName}(osv.osv_memory):
-_inherit = '${2:ObjectName}'
-
-_columns = {
-${3}
-}
-
-$1()
-
-#
-# Define type of fields
-#
-endsnippet
-
-snippet fields "fields.char"
-'${1:fieldname}': fields.char('${2:Label}', size=${3:64}, ${5}help='${4:Help note}'),${6}
-endsnippet
-
-snippet fields "fields.integer"
+snippet fint "integer"
 '${1:fieldname}': fields.integer('${2:Label}', ${4}help='${3:Help note}'),${5}
 endsnippet
 
-snippet fields "fields.float"
+snippet ffl "float"
 '${1:fieldname}': fields.float('${2:Label}', digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help='${4:Help note}'),${6}
 endsnippet
 
-snippet fields "fields.boolean"
+snippet fbo "boolean"
 '${1:fieldname}': fields.boolean('${2:Label}', ${4}help='${3:Help note}'),${5}
 endsnippet
 
-snippet fields "fields.date"
+snippet fdt "date"
 '${1:fieldname}': fields.date('${2:Label}', ${4}help='${3:Help note}'),${5}
 endsnippet
 
-snippet fields "fields.datetime"
-'${1:fieldname}': fields.datetime('${2:Label}', ${4}help='${3:Help note}'),${5}
+snippet fdti "datetime"
+'${1:fieldname}': fields.datetime('${2:Label}', ${3}),${4}
 endsnippet
 
-snippet fields "fields.selection"
-'${1:fieldname}': fields.selection(${2:[('', '')]}, '${3:Label}', ${5}help='${4:Help note}'),${6}
+snippet fsl "selection"
+${1:fieldname} = fields.Selection([
+	${2:('', '')}
+	],
+	${3})
+${4}
+`!p snip._parent.globals['last_field'] = t[1]`
 endsnippet
 
-snippet fields "fields.many2one"
+snippet st "selection tuple"
+('${1:fieldname}', '`!p snip.rv=t[1].replace('_', ' ').title()`'),${2}
+endsnippet
+
+snippet fm2o "many2one"
 '${1:fieldname}_id': fields.many2one('${2:ObjectName}', '${3:Label}', ${5}help='${4:Help note}'),${6}
 endsnippet
 
-snippet fields "fields.many2many"
+snippet fm2m "many2many"
 '${1:fieldname}_ids': fields.many2many('${2:ObjectName}', '${3:TableRel}', '${4:src_id}', '${5:dst_id}', '${6:Label}', ${8}help='${7:Help note}'),${9}
 endsnippet
 
-snippet fields "fields.one2many"
+snippet fo2m "one2many"
 '${1:fieldname}_ids': fields.one2many('${2:ObjectName}', '${3:fieldname}_id', '${4:Label}', ${6}help='${5:Help note}'),${7}
 endsnippet
 
-snippet fields "fields.function"
-'${1:fieldname}': fields.function(${2:FunctionName},
-    string='${4:label}',
-    type='${5:float}',
-    store=${6:False},${8}
-    help='${7:Help note}'),${9}
-endsnippet
-
-snippet fields "fields.related"
-'${1:fieldname}': fields.related('${2:field in}', '${3:field rel}', type='${4:many2one}', ${5:relation='res.partner'},
-    string='${6:Label}', ${8}help='${7:Help note}'),${9}
-endsnippet
-
-snippet fields "fields.property"
+snippet fpr "property"
 '${1:fieldname}': fields.property('${2:object}', method=${3:True},
     string='${4:label}', type='${5:many2one}', ${7}help='${6:Help note}'),${8}
 endsnippet
 
-snippet fields "fields.text"
+snippet ftx "text"
 '${1:fieldname}': fields.text('${2:Label}', ${4}help='${3:Help note}'),${5}
 endsnippet
 
-snippet fields "fields.binary"
+snippet fbin "binary"
 '${1:fieldname}': fields.binary('${2:Label}', ${4}help='${3:Help note}'),${5}
 endsnippet
 
-snippet fields "fields.reference"
+snippet fref "reference"
 '${1:fieldname}': fields.reference('${2:Label}', selection=${3:[('', '')]}, size=128, ${5}help='${4:Help note}'),${6}
 # Attribute for fields
+endsnippet
+
+snippet cpt "compute"
+compute='_compute_`!p snip.rv=snip._parent.globals['last_field']`',
+endsnippet
+
+snippet fcpt " function compute"
+def _compute_`!p snip.rv=snip._parent.globals['last_field']`'(self):
+    for record in self:
+endsnippet
+
+snippet cpti "compute inverse"
+inverse='_inverse_`!p snip.rv=snip._parent.globals['last_field']`',
+endsnippet
+
+snippet fcpti "function compute inverse"
+def _inverse_`!p snip.rv=snip._parent.globals['last_field']`(self):
+    for record in self:
+endsnippet
+
+snippet cpts "compute search"
+search='_search_`!p snip.rv=snip._parent.globals['last_field']`',
+endsnippet
+
+snippet fcpts "function compute search"
+def _search_`!p snip.rv=snip._parent.globals['last_field']`(self):
 endsnippet
 
 snippet domain
@@ -405,61 +419,6 @@ def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, 
     ${2}
 endsnippet
 
-snippet func "on_change"
-def onchange_${1:fields}(self, cr, uid, ids, $1, context=None):
-    """
-    #TODO make doc string
-    ${2:Comment this/compute new values from the db/system}
-    """
-    #TODO : compute new values from the db/system
-    if context is None:
-        context = {}
-    ${3}
-    return {
-        'value':{
-            'field_1': res1
-            'field_2': res2
-        }
-    }
-endsnippet
-
-snippet func "fields.function"
-def _get_${1:field_name}(self, cr, uid, ids, field_name, args, context=None):
-    result = {}
-    for ${2:name} in self.browse(cr, uid, ids, context=context):
-        result[$2.id] = ${3:value}
-
-    return result
-endsnippet
-
-snippet func "fields.function multi"
-def _get_${1:function_name}(self, cr, uid, ids, field_name, args, context=None):
-    result = {}
-    for ${2:name} in self.browse(cr, uid, ids, context=context):
-        result[$2.id] = {
-            ${4:field_name}: ${3:value},
-        }
-
-    return result
-endsnippet
-
-snippet func "fields_view_get v 5.0"
-def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
-    """
-    Comment here
-    """
-    # use lxml to compose the arch XML
-    arch = ${1:XML HERE}
-    fields = ${2:FIELDS HERE}
-    tb = {'print': [], 'action': [], 'relate': []}
-    result = {
-        'arch': arch,
-        'fields': fields,
-        'toolbar': tb,
-    }
-    return result
-endsnippet
-
 snippet func "fields_view_get v 6.0"
 def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
     """
@@ -517,13 +476,6 @@ endsnippet
 
 snippet _ "_auto"
 _auto = False
-endsnippet
-
-snippet _ "_columns"
-_columns = {
-    ${1:# ... code}
-}
-${2}
 endsnippet
 
 snippet _ "_constraints"
@@ -667,20 +619,6 @@ endsnippet
 
 snippet pool
 pool.get('${1:res.partner}')${2}
-endsnippet
-
-snippet !context
-if context is None:
-    context = {}
-#
-# Usefull endsnippet
-
-snippet
-#
-endsnippet
-
-snippet active
-'active': fields.boolean('${1:Active}', help='if check, ${2:this object is always available}'),${3}
 endsnippet
 
 snippet sequence
