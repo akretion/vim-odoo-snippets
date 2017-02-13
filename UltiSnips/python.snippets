@@ -109,7 +109,7 @@ snippet fint "integer"
 endsnippet
 
 snippet ffl "float"
-'${1:fieldname}': fields.float('${2:Label}', digits_compute=dp.get_precision('${3:PrecisionName}'), ${5}help='${4:Help note}'),${6}
+${1:fieldname} = fields.float(digits_compute=dp.get_precision('${2:PrecisionName}')${3})${4}
 endsnippet
 
 snippet fbo "boolean"
@@ -144,7 +144,9 @@ ${1:fieldname}_id = fields.Many2one(
 endsnippet
 
 snippet fm2m "many2many"
-'${1:fieldname}_ids': fields.many2many('${2:ObjectName}', '${3:TableRel}', '${4:src_id}', '${5:dst_id}', '${6:Label}', ${8}help='${7:Help note}'),${9}
+${1:fieldname}_ids = fields.Many2many(
+    comodel_name='${2:ObjectName}',
+    string='`!p snip.rv=format_description(t[1])`'${3})${4}
 endsnippet
 
 snippet fo2m "one2many"
@@ -160,7 +162,7 @@ snippet fpr "property"
 endsnippet
 
 snippet ftx "text"
-'${1:fieldname}': fields.text('${2:Label}', ${4}help='${3:Help note}'),${5}
+${1:fieldname} = fields.Text(${2})${3}
 endsnippet
 
 snippet fbin "binary"

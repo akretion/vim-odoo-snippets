@@ -221,14 +221,14 @@ snippet form
 endsnippet
 
 snippet menuitem "Action"
-<menuitem id="menu_${1:ir_model_data}" 
+<menuitem id="menu_${1:ir_model_data}"
     parent="menu_${2:menu_parent}"
     sequence="${3:20}"
     action="action_${4:Action}"/>
 endsnippet
 
 snippet menuitem "Name"
-<menuitem id="menu_${1:ir_model_data}" 
+<menuitem id="menu_${1:ir_model_data}"
     parent="menu_${2:menu_parent}"
     sequence="${3:20}"
     name="${4:Label}"/>
@@ -244,7 +244,7 @@ snippet menuitem "Server Action"
 
 <menuitem name="$2"
     action="action_$1"
-    id="menu_$1" 
+    id="menu_$1"
     parent="base.menu_config"
     type="server" icon="STOCK_EXECUTE" sequence="100" />
 endsnippet
@@ -336,193 +336,173 @@ snippet iview
 </record>
 endsnippet
 
-snippet view "form"
-<record id="view_${1:model}_form" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+snippet view "view"
+<record id="`!p snip.rv=format_snake(t[1])`_view_${2:form}" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<form string="${3:Label}">
-    <field name="${4:name}" select="1"/>
-</form>
+        <$2 string="${3:Label}">
+            <field name="${4:name}"/>
+        </$2>
     </field>
 </record>
 endsnippet
 
-snippet view "tree"
-<record id="view_${1:model}_tree" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+snippet view_tf "both (tree, form)"
+<record id="`!p snip.rv=format_snake(t[1])`_view_tree" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<tree string="${3:Label}">
-    <field name="${4:name}"/>
-</tree>
+        <tree string="${2:Label}">
+            <field name="${3:name}"/>
+        </tree>
+    </field>
+</record>
+
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">$1</field>
+    <field name="arch" type="xml">
+        <form string="$2">
+            <field name="$3"/>
+        </form>
     </field>
 </record>
 endsnippet
 
-snippet view "search"
-<record id="view_${1:model}_search" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+snippet view_tfs "both (tree, form, search)"
+<record id="`!p snip.rv=format_snake(t[1])`_view_tree" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<search string="${3:Label}">
-    <field name="${4:name}" select="True"/>
-</search>
+        <tree string="${2:Label}">
+            <field name="${3:name}"/>
+        </tree>
+    </field>
+</record>
+
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">$1</field>
+    <field name="arch" type="xml">
+        <form string="$2">
+            <field name="$3"/>
+        </form>
+    </field>
+</record>
+
+<record id="`!p snip.rv=format_snake(t[1])`_view_search" model="ir.ui.view">
+    <field name="model">$1</field>
+    <field name="arch" type="xml">
+        <search string="$2">
+            <field name="$3"/>
+        </search>
     </field>
 </record>
 endsnippet
 
-snippet view "both (tree, form)"
-<record id="view_${1:model}_tree" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+snippet view_tfa "both (tree, form) + Action + Menu"
+<record id="`!p snip.rv=format_snake(t[1])`_view_tree" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<tree string="${3:Label}">
-    <field name="${4:name}"/>
-</tree>
+        <tree string="${2:Label}">
+            <field name="${3:name}"/>
+        </tree>
     </field>
 </record>
 
-<record id="view_$1_form" model="ir.ui.view">
-    <field name="model">$2</field>
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">$1</field>
     <field name="arch" type="xml">
-<form string="$3">
-    <field name="$4" select="1"/>
-</form>
-    </field>
-</record>
-endsnippet
-
-snippet view "both (tree, form, search)"
-<record id="view_${1:model}_tree" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
-    <field name="arch" type="xml">
-<tree string="${3:Label}">
-    <field name="${4:name}"/>
-</tree>
+        <form string="$2">
+            <field name="$3"/>
+        </form>
     </field>
 </record>
 
-<record id="view_$1_form" model="ir.ui.view">
-    <field name="model">$2</field>
-    <field name="arch" type="xml">
-<form string="$3">
-    <field name="$4" select="1"/>
-</form>
-    </field>
-</record>
-<record id="view_$1_search" model="ir.ui.view">
-    <field name="model">$2</field>
-    <field name="arch" type="xml">
-<search string="$3">
-    <field name="$4" select="True"/>
-</search>
-    </field>
-</record>
-endsnippet
-
-snippet view "both (tree, form) + Action + Menu"
-<record id="view_${1:model}_tree" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
-    <field name="arch" type="xml">
-<tree string="${3:Label}">
-    <field name="${4:name}"/>
-</tree>
-    </field>
-</record>
-
-<record id="view_$1_form" model="ir.ui.view">
-    <field name="model">$2</field>
-    <field name="arch" type="xml">
-<form string="$3">
-    <field name="$4" select="1"/>
-</form>
-    </field>
-</record>
-
-<record model="ir.actions.act_window" id="act_open_$1_view">
-    <field name="name">$3</field>
+<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_view">
+    <field name="name">$2</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">$2</field>
+    <field name="res_model">$1</field>
     <field name="view_type">form</field>
     <field name="view_mode">tree,form</field>
     <field name="domain">[]</field>
     <field name="context">{}</field>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_$1_view_form">
-    <field name="act_window_id" ref="act_open_$1_view"/>
+<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_form">
+    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
     <field name="sequence" eval="20"/>
     <field name="view_mode">form</field>
-    <field name="view_id" ref="view_$1_form"/>
+    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_form"/>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_$1_view_tree">
-    <field name="act_window_id" ref="act_open_$1_view"/>
+<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_tree">
+    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
     <field name="sequence" eval="10"/>
     <field name="view_mode">tree</field>
-    <field name="view_id" ref="view_$1_tree"/>
+    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_tree"/>
 </record>
 
-<menuitem id="menu_$1"
-    parent="${5:module.xmlid}"
+<menuitem id="menu_`!p snip.rv=format_snake(t[1])`"
+    parent="${4:module.xmlid}"
     sequence="20"
-    action="act_open_$1_view"/>
+    action="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
 endsnippet
 
-snippet view "both (tree, form, search) + Action + Menu"
-<record id="view_${1:model}_tree" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+
+snippet view_tfsa "both (tree, form, search) + Action + Menu"
+<record id="`!p snip.rv=format_snake(t[1])`_view_tree" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<tree string="${3:Label}">
-    <field name="${4:name}"/>
-</tree>
+        <tree string="${2:Label}">
+            <field name="${3:name}"/>
+        </tree>
     </field>
 </record>
 
-<record id="view_$1_form" model="ir.ui.view">
-    <field name="model">$2</field>
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">$1</field>
     <field name="arch" type="xml">
-<form string="$3">
-    <field name="$4" select="1"/>
-</form>
+        <form string="$2">
+            <field name="$3"/>
+        </form>
     </field>
 </record>
 
-<record id="view_$1_search" model="ir.ui.view">
-    <field name="model">$2</field>
+<record id="`!p snip.rv=format_snake(t[1])`_view_search" model="ir.ui.view">
+    <field name="model">$1</field>
     <field name="arch" type="xml">
-<search string="$3">
-    <field name="$4" select="True"/>
-</search>
+        <search string="$2">
+            <field name="$3"/>
+        </search>
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="act_open_$1_view">
-    <field name="name">$3</field>
+<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_view">
+    <field name="name">$2</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">$2</field>
+    <field name="res_model">$1</field>
     <field name="view_type">form</field>
     <field name="view_mode">tree,form</field>
-    <field name="search_view_id" ref="view_$1_search"/>
+    <field name="search_view_id" ref="`!p snip.rv=format_snake(t[1])`_view_search"/>
     <field name="domain">[]</field>
     <field name="context">{}</field>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_$1_view_form">
-    <field name="act_window_id" ref="act_open_$1_view"/>
+<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_form">
+    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
     <field name="sequence" eval="20"/>
     <field name="view_mode">form</field>
-    <field name="view_id" ref="view_$1_form"/>
+    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_form"/>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_$1_view_tree">
-    <field name="act_window_id" ref="act_open_$1_view"/>
+<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_tree">
+    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
     <field name="sequence" eval="10"/>
     <field name="view_mode">tree</field>
-    <field name="view_id" ref="view_$1_tree"/>
+    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_tree"/>
 </record>
 
-<menuitem id="menu_$1"
-    parent="${5:module.xmlid}"
+<menuitem id="menu_`!p snip.rv=format_snake(t[1])`"
+    parent="${4:module.xmlid}"
     sequence="20"
-    action="act_open_$1_view"/>
+    action="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
 endsnippet
 
 snippet act_window
