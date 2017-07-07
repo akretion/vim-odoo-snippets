@@ -105,7 +105,8 @@ ${3}
 endsnippet
 
 snippet fint "integer"
-'${1:fieldname}': fields.integer('${2:Label}', ${4}help='${3:Help note}'),${5}
+${1:fieldname} = fields.Integer(${2})
+${3}
 endsnippet
 
 snippet ffl "float"
@@ -397,7 +398,7 @@ def name_get(self, cr, uid, ids, context=None):
     if not len(ids):
         return []
     #TODO : search on name field or _res_name fields
-    #and make a result [(id, name), (id, name), ...] 
+    #and make a result [(id, name), (id, name), ...]
     reads = self.read(cr, uid, ids, [self._rec_name], context, load='_classic_write')]
     res = []
     ${2}
