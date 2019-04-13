@@ -7,7 +7,7 @@ def format_class(name):
 endglobal
 
 snippet imodel
-from openerp import models
+from odoo import models
 ${1}
 endsnippet
 
@@ -16,25 +16,25 @@ from . import ${1}
 endsnippet
 
 snippet ifield
-from openerp import api, fields, models
+from odoo import _, api, fields, models
 ${1}
 endsnippet
 
 snippet isuperuser
-from openerp import SUPERUSER_ID
+from odoo import SUPERUSER_ID
 endsnippet
 
 snippet idp
-import openerp.addons.decimal_precision as dp
+import odoo.addons.decimal_precision as dp
 endsnippet
 
 snippet iconfig
-from openerp.tools import config
+from odoo.tools import config
 endsnippet
 
 snippet start
 # -*- coding: utf-8 -*-
-# Copyright 2017 Akretion (http://www.akretion.com).
+# Copyright 2019 Akretion (http://www.akretion.com).
 # @author Sébastien BEAU <sebastien.beau@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 ${1}
@@ -219,10 +219,6 @@ endsnippet
 
 snippet translate argument
 translate=True, ${1}
-endsnippet
-
-snippet itranslate
-from openerp.tools.translate import _
 endsnippet
 
 snippet dp
