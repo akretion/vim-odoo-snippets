@@ -6,6 +6,10 @@ def format_class(name):
     return name.replace('.', ' ').title().replace(' ', '')
 endglobal
 
+snippet pdb
+import pdb; pdb.set_trace();
+endsnippet
+
 snippet imodel
 from odoo import models
 ${1}
