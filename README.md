@@ -8,15 +8,22 @@ How to install
 Using [Vundle](https://github.com/gmarik/vundle)
 -------------
 
+Add the following code in your vimrc
 ```Vim
-    Install UltiSnips
-    Bundle 'SirVer/ultisnips'
+    " Install UltiSnips
+    Plugin 'SirVer/ultisnips'
 
-    Install :
-    Bundle 'akretion/vim-odoo-snippets"
+    " Install Odoo snippet
+    Plugin 'akretion/vim-odoo-snippets"
 
-    And :BundleInstall
 ```
+
+Then run
+
+```Vim
+    :PluginInstall
+```
+
 Contribution
 -------------
 
