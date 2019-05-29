@@ -6,6 +6,10 @@ def format_class(name):
     return name.replace('.', ' ').title().replace(' ', '')
 endglobal
 
+snippet pdb
+import pdb; pdb.set_trace();
+endsnippet
+
 snippet imodel
 from odoo import models
 ${1}
@@ -34,9 +38,9 @@ endsnippet
 
 snippet start
 # -*- coding: utf-8 -*-
-# Copyright 2019 Akretion (http://www.akretion.com).
-# @author Sébastien BEAU <sebastien.beau@akretion.com>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright `date +%Y` Akretion (https://www.akretion.com).
+# @author `git config user.name` <`git config user.email`>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 ${1}
 endsnippet
 
@@ -110,7 +114,7 @@ ${3}
 endsnippet
 
 snippet ffl "float"
-${1:fieldname} = fields.float(digits_compute=dp.get_precision('${2:PrecisionName}')${3})${4}
+${1:fieldname} = fields.Float(digits_compute=dp.get_precision('${2:PrecisionName}')${3})${4}
 endsnippet
 
 snippet fbo "boolean"
