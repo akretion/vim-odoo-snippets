@@ -529,25 +529,25 @@ snippet act_view
 
 endsnippet
 
-snippet xpath "after"
+snippet xpathaf "after"
 <xpath expr="//field[@${1:name}='${2:field}']" position="after">
     <field name="${3:name}"/>
 </xpath>
 endsnippet
 
-snippet xpath "before"
+snippet xpathb "before"
 <xpath expr="//field[@${1:name}='${2:field}']" position="before">
     <field name="${3:name}"/>
 </xpath>
 endsnippet
 
-snippet xpath "replace"
+snippet xpathr "replace"
 <xpath expr="//field[@${1:name}='${2:field}']" position="replace">
     <field name="$2"/>
 </xpath>
 endsnippet
 
-snippet xpath "inside"
+snippet xpathi "inside"
 <xpath expr="//notebook" position="inside">
     <page string="${1:text}">
     <field name="${2:name}"/>
@@ -555,7 +555,7 @@ snippet xpath "inside"
 </xpath>
 endsnippet
 
-snippet xpath "attribute"
+snippet xpathat "attribute"
 <xpath expr="//field[@${1:name}='${2:field}']" position="attributes">
     <attribute name="${3:required}">${4:1}</attribute>
 </xpath>

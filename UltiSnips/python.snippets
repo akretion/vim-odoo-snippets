@@ -10,6 +10,18 @@ snippet pdb
 import pdb; pdb.set_trace();
 endsnippet
 
+snippet itest
+from odoo.tests import SavepointCase
+
+
+class ${1}(SavepointCase):
+
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		${2}
+endsnippet
+
 snippet imodel
 from odoo import models
 ${1}
@@ -36,8 +48,11 @@ snippet iconfig
 from odoo.tools import config
 endsnippet
 
-snippet start
+snippet header
 # -*- coding: utf-8 -*-
+endsnippet
+
+snippet start
 # Copyright `date +%Y` Akretion (https://www.akretion.com).
 # @author `git config user.name` <`git config user.email`>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
@@ -114,15 +129,18 @@ ${3}
 endsnippet
 
 snippet ffl "float"
-${1:fieldname} = fields.Float(digits_compute=dp.get_precision('${2:PrecisionName}')${3})${4}
+${1:fieldname} = fields.Float(digits=dp.get_precision('${2:PrecisionName}')${3})
+${4}
 endsnippet
 
 snippet fbo "boolean"
-${1:fieldname} = fields.Boolean(${2:})${3}
+${1:fieldname} = fields.Boolean(${2:})
+${3}
 endsnippet
 
 snippet fdt "date"
-'${1:fieldname}': fields.date('${2:Label}', ${4}help='${3:Help note}'),${5}
+${1:fieldname} = fields.Date(${2})
+${3}
 endsnippet
 
 snippet fdti "datetime"
@@ -226,15 +244,7 @@ translate=True, ${1}
 endsnippet
 
 snippet dp
-digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}
-endsnippet
-
-snippet digits "digits"
-digits=(${1:16}, ${2:2}), ${3}
-endsnippet
-
-snippet digits "digits_compute"
-digits_compute=dp.get_precision('${1:PrecisionName}'), ${2}
+digits=dp.get_precision('${1:PrecisionName}'), ${2}
 endsnippet
 
 snippet select
@@ -302,22 +312,18 @@ ${1}
     return res
 endsnippet
 
-snippet func "def create"
-def create(self, cr, uid, vals, context=None):
-    if context is None:
-        context = {}
+snippet fcreate "def create"
+def create(self, vals):
     ${1}
-    ${3:record}_id = super(${2:ClassName}, self).create(cr, uid, vals, context=context)
-    ${4}
-    return $3_id
+    record = super(${2:ClassName}, self).create(vals)
+    ${3}
+    return record
 endsnippet
 
-snippet func "def write"
-def write(self, cr, uid, ids, values, context=None):
-    if context is None:
-        context = {}
+snippet fwrite "def write"
+def write(self, vals):
     ${1}
-    res = super(${2:ClassName}, self).write(cr, uid, ids, values, context=context)
+    res = super(${2:ClassName}, self).write(vals)
     ${3}
     return res
 endsnippet
@@ -806,5 +812,13 @@ endsnippet
 
 snippet context_get
 context = self.pool.get('res.users').context_get(cr, uid)
+endsnippet
+
+snippet idt
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+endsnippet
+
+snippet id
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 endsnippet
 
