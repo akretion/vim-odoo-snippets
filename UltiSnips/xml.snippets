@@ -10,92 +10,69 @@ snippet start
 ${1}
 
 </odoo>
+
 endsnippet
 
-snippet field "<field ... />"
+snippet fd "<field ... />"
 <field name="${1:Field}"/>
+
 endsnippet
 
-snippet field "<field ... ></field>"
+snippet fdc "<field ... ></field>"
 <field name="${1:Field}">${2:Value}</field>
+
 endsnippet
 
-snippet field "<field ... colspan ... />"
-<field name="${1:Field}" colspan="${2:4}"/>
-endsnippet
-
-snippet field "<field ... colspan ... col ... />"
-<field name="${1:Field}" colspan="${2:4}" col="${3:4}"/>
-endsnippet
-
-snippet field "<field ref='xxx'... />"
+snippet fdr "<field ref='xxx'... />"
 <field name="${1:Field}" ref="${2:ir_model_data}"/>
+
 endsnippet
 
-snippet field "<field eval='xxx'... />"
+snippet fde "<field eval='xxx'... />"
 <field name="${1:Field}" eval="${2:Value}"/>
+
 endsnippet
 
 snippet button
-<button string="${1:Validate}" icon="${2:gtk-ok}" states="${3:draft}" type="${4:object}" name="${5:to_validate}"/>
+<button string="${1:Validate}" type="${4:object}" name="${5:to_validate}"/>
+
 endsnippet
 
 snippet domain
 domain="[('${1:state}','${2:=}', ${3:True})]"
+
 endsnippet
 
 snippet context
 context="{}"
+
 endsnippet
 
-snippet attrs "required"
+snippet attrsreq "required"
 attrs="{'${1:required}': [('${2:state}','${3:=}', ${4:'value'})]}"
+
 endsnippet
 
-snippet attrs "readonly"
+snippet attrsread "readonly"
 attrs="{'${1:readonly}': [('${2:state}','${3:=}', ${4:'value'})]}"
+
 endsnippet
 
-snippet attrs "invisible"
+snippet attrsinv "invisible"
 attrs="{'${1:invisible}': [('${2:state}','${3:=}', ${4:'value'})]}"
-endsnippet
 
-snippet select
-select="1"
-endsnippet
-
-snippet type "object"
-type="object"
-endsnippet
-
-snippet type "action"
-type="action"
-endsnippet
-
-snippet type "workflow"
-type="workflow"
-endsnippet
-
-snippet onchange
-on_change="onchange_${1:method}(${1:argument}, context=context)"
-endsnippet
-
-snippet on_change
-on_change="onchange_${1:method}(${1:argument}, context=context)"
 endsnippet
 
 snippet sep
 <separator string="${1:Label}" colspan="${2:4}"/>
-endsnippet
 
-snippet separator
-<separator string="${1:Label}" colspan="${2:4}"/>
 endsnippet
 
 snippet group
-<group colspan="${1:4}">
+<group>
     $0
 </group>
+
 endsnippet
 
 snippet notebook
@@ -104,176 +81,183 @@ snippet notebook
 $0
     </page>
 </notebook>
+
 endsnippet
 
 snippet page
 <page string="${1:Label}">
     $0
 </page>
+
 endsnippet
 
 snippet label
 <label string="${1:Label}"/>
-endsnippet
 
-snippet attribute
-<attribute name="${1:name}">${2:value}</attribute>
 endsnippet
 
 snippet attr
 <attribute name="${1:name}">${2:value}</attribute>
+
 endsnippet
 
 snippet newline
 <newline/>
+
 endsnippet
 
 snippet record
 <record id="${1:ir_model_data}" model="${2:Model}">
     $0
 </record>
+
 endsnippet
 
 snippet ref
 ref="${1:ir_model_data}"
+
 endsnippet
 
 snippet eval
 eval="${1:Value}"
+
 endsnippet
 
 snippet nol
 nolabel="1" ${1}
-endsnippet
 
-snippet nolabel
-nolabel="1" ${1}
 endsnippet
 
 snippet readonly
 readonly="1" ${1}
+
 endsnippet
 
 snippet required
 required="1" ${1}
+
 endsnippet
 
 snippet invisible
 invisible="1" ${1}
+
 endsnippet
 
 snippet pos
 position="${1:inside}"
+
 endsnippet
 
 snippet position
 position="${1:inside}"
+
 endsnippet
 
 snippet mode
 mode="tree,form"
+
 endsnippet
 
 snippet colspan
 colspan="4"
+
 endsnippet
 
 snippet col
 col="4"
+
 endsnippet
 
 snippet colors
 colors="${1:grey}:${2:state}${3:==}'${4:draft}'${5:;}"
-endsnippet
 
-snippet editable "top"
-editable="top"
 endsnippet
 
 snippet editable "bottom"
 editable="bottom"
+
 endsnippet
 
 snippet focus
 default_focus="1"
+
 endsnippet
 
 snippet noupdate
 noupdate="1"
+
 endsnippet
 
 snippet confirm
 confirm="Are you sure ?"
+
 endsnippet
 
 snippet tree
 <tree string="${1:Label}">
     $0
 </tree>
+
 endsnippet
 
 snippet form
 <form string="${1:Label}">
     $0
 </form>
+
 endsnippet
 
-snippet menuitem "Action"
-<menuitem id="menu_${1:ir_model_data}"
-    parent="menu_${2:menu_parent}"
+snippet menuact "Action"
+<menuitem id="${1:model_name}_menu"
+    parent="${2:menu_parent}_menu"
     sequence="${3:20}"
     action="action_${4:Action}"/>
+
 endsnippet
 
-snippet menuitem "Name"
-<menuitem id="menu_${1:ir_model_data}"
-    parent="menu_${2:menu_parent}"
+snippet menuname "Name"
+<menuitem id="${1:model_name}_menu"
+    parent="${2:menu_parent}_menu"
     sequence="${3:20}"
     name="${4:Label}"/>
+
 endsnippet
 
 snippet menuitem "Server Action"
-<record id="action_${1:refid_server}" model="ir.actions.server">
-    <field name="name">${2:Name of the action}</field>
-    <field name="model_id" ref="model_${3:res_partner}"/>
+<record id="$1_action_server" model="ir.actions.server">
+    <field name="name">${1:Name of the action}</field>
+    <field name="model_id" ref="model_${2:model_name}"/>
+    <field name="binding_model_id" ref="${3:model_for_action}"/>
     <field name="state">code</field>
-    <field name="code">action = obj.${4:my_function}()</field>
+    <field name="code">${3:code}</field>
 </record>
 
-<menuitem name="$2"
-    action="action_$1"
-    id="menu_$1"
-    parent="base.menu_config"
-    type="server" icon="STOCK_EXECUTE" sequence="100" />
 endsnippet
 
-snippet wizard "<wizard/>"
-<wizard id="wizard_${1:name}"
-    string="${2:label}"
-    model="${3:ir.model}"
-    name="${4:wizard_name}"/>
-endsnippet
+snippet wizardmenu "Wizard launch in menu"
 
-snippet wizard "transient menu"
-<record id="view_${1:model}_form" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<form string="${3:Label}">
-    <field name="${4:name}" select="1"/>
-    <separator string="" colspan="4" />
-    <group colspan="4" col="6">
-        <label string ="" colspan="2"/>
-        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
-        <button icon="terp-gtk-go-back-rtl" string="Start" name="${5:_continue}" type="object"/>
-    </group>
-</form>
+        <form string="${3:Label}">
+            <p class="oe_grey">${4:Explain what to do}
+            </p>
+            <group>
+                <field name="${7:name}"/>
+                ${8}
+            </group>
+            <footer>
+                <button name="${5:method}" string="${6:Confirm}" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="action_$1_view">
+<record model="ir.actions.act_window" id="`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">$3</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">$2</field>
+    <field name="res_model">$1</field>
     <field name="view_type">form</field>
     <field name="view_mode">form</field>
     <field name="domain">[]</field>
@@ -281,47 +265,45 @@ snippet wizard "transient menu"
     <field name="target">new</field>
 </record>
 
-<menuitem id="menu_$1_wizard"
-    parent="menu_${6:menu_parent}"
+<menuitem id="`!p snip.rv=format_snake(t[1])`_menu"
+    parent="${6:menu_parent}_menu"
     sequence="${7:20}"
-    action="action_$1_view"/>
+    action="`!p snip.rv=format_snake(t[1])`_action"/>
+
 endsnippet
 
-snippet wizard "transient toolbar"
-<record id="view_${1:model}_form" model="ir.ui.view">
-    <field name="model">${2:Model}</field>
+snippet wizardaction "Wizard launch in action"
+
+<record id="`!p snip.rv=format_snake(t[1])`_view_form" model="ir.ui.view">
+    <field name="model">${1:model}</field>
     <field name="arch" type="xml">
-<form string="${3:Label}" version="7.0">
-<separator string="$3"/>
-<label string="${5:Description}"/>
-<footer>
-<button name="generate_invoice" string="Generate Invoice" type="object" class="oe_highlight"/>
-or
-<button string="Cancel" class="oe_link" special="cancel"/>
-</footer>
-</form>
+        <form string="${3:Label}">
+            <p class="oe_grey">${4:Explain what to do}
+            </p>
+            <group>
+                <field name="${8:name}"/>
+                ${9}
+            </group>
+            <footer>
+                <button name="${5:method}" string="${6:Confirm}" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="action_$1_view">
+<record model="ir.actions.act_window" id="`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">$3</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">$2</field>
+    <field name="res_model">$1</field>
     <field name="view_type">form</field>
     <field name="view_mode">form</field>
+    <field name="binding_model_id" ref="${7:model_for_action}"/>
     <field name="domain">[]</field>
     <field name="context">{}</field>
     <field name="target">new</field>
 </record>
 
-<record model="ir.values" id="wizard_$1">
-    <field name="name">$3</field>
-    <field name="object" eval="1"/>
-    <field name="key">action</field>
-    <field name="key2">client_action_multi</field>
-    <field name="model">${4:Model to launch wizard}</field>
-    <field name="value" eval="'ir.actions.act_window,' + str(ref('action_$1_view'))" />
-</record>
 endsnippet
 
 snippet iview
@@ -332,6 +314,7 @@ snippet iview
         ${5}
     </field>
 </record>
+
 endsnippet
 
 snippet view "view"
@@ -343,6 +326,7 @@ snippet view "view"
         </$2>
     </field>
 </record>
+
 endsnippet
 
 snippet view_tf "both (tree, form)"
@@ -363,6 +347,7 @@ snippet view_tf "both (tree, form)"
         </form>
     </field>
 </record>
+
 endsnippet
 
 snippet view_tfs "both (tree, form, search)"
@@ -392,6 +377,7 @@ snippet view_tfs "both (tree, form, search)"
         </search>
     </field>
 </record>
+
 endsnippet
 
 snippet view_tfa "both (tree, form) + Action + Menu"
@@ -413,7 +399,7 @@ snippet view_tfa "both (tree, form) + Action + Menu"
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_view">
+<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">$2</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">$1</field>
@@ -423,24 +409,11 @@ snippet view_tfa "both (tree, form) + Action + Menu"
     <field name="context">{}</field>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_form">
-    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
-    <field name="sequence" eval="20"/>
-    <field name="view_mode">form</field>
-    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_form"/>
-</record>
-
-<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_tree">
-    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
-    <field name="sequence" eval="10"/>
-    <field name="view_mode">tree</field>
-    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_tree"/>
-</record>
-
-<menuitem id="menu_`!p snip.rv=format_snake(t[1])`"
+<menuitem id="`!p snip.rv=format_snake(t[1])`_menu"
     parent="${4:module.xmlid}"
     sequence="20"
     action="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
+
 endsnippet
 
 
@@ -472,7 +445,7 @@ snippet view_tfsa "both (tree, form, search) + Action + Menu"
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_view">
+<record model="ir.actions.act_window" id="`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">$2</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">$1</field>
@@ -483,188 +456,100 @@ snippet view_tfsa "both (tree, form, search) + Action + Menu"
     <field name="context">{}</field>
 </record>
 
-<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_form">
-    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
-    <field name="sequence" eval="20"/>
-    <field name="view_mode">form</field>
-    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_form"/>
-</record>
-
-<record model="ir.actions.act_window.view" id="act_open_`!p snip.rv=format_snake(t[1])`_view_tree">
-    <field name="act_window_id" ref="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
-    <field name="sequence" eval="10"/>
-    <field name="view_mode">tree</field>
-    <field name="view_id" ref="`!p snip.rv=format_snake(t[1])`_view_tree"/>
-</record>
-
-<menuitem id="menu_`!p snip.rv=format_snake(t[1])`"
+<menuitem id="`!p snip.rv=format_snake(t[1])`_menu"
     parent="${4:module.xmlid}"
     sequence="20"
-    action="act_open_`!p snip.rv=format_snake(t[1])`_view"/>
+    action="`!p snip.rv=format_snake(t[1])`_action"/>
+
 endsnippet
 
 snippet act_window
-<act_window id="act_${1:ir_model_data}"
-    name="${2:Name}"
-    res_model="${3:destination_model}"
-    src_model="${4:source_model}"
-    domain="[('${5:field}', '${6:operator}', ${7:active_id})]"/>
+<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_action">
+    <field name="name">${2:Name}</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">${1:model_name}</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="search_view_id" ref="`!p snip.rv=format_snake(t[1])`_view_search"/>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+</record>
+
 endsnippet
 
 snippet act_view
-<record model="ir.actions.act_window.view" id="act_open_${1:model}_view_form">
-    <field name="act_window_id" ref="act_open_$1_view"/>
+<record model="ir.actions.act_window.view" id="${1:model_name}_action_view_${2:form}">
+    <field name="act_window_id" ref="$1_action"/>
     <field name="sequence" eval="20"/>
     <field name="view_mode">form</field>
-    <field name="view_id" ref="view_$1_form"/>
+    <field name="view_id" ref="$1_view_form"/>
 </record>
-
-<record model="ir.actions.act_window.view" id="act_open_$1_view_tree">
-    <field name="act_window_id" ref="act_open_$1_view"/>
-    <field name="sequence" eval="10"/>
-    <field name="view_mode">tree</field>
-    <field name="view_id" ref="view_$1_tree"/>
-</record>
-
 
 endsnippet
 
-snippet xpathaf "after"
+snippet xpaf "xpath after"
 <xpath expr="//field[@${1:name}='${2:field}']" position="after">
     <field name="${3:name}"/>
 </xpath>
+
 endsnippet
 
-snippet xpathb "before"
+snippet xpb "xpath before"
 <xpath expr="//field[@${1:name}='${2:field}']" position="before">
     <field name="${3:name}"/>
 </xpath>
+
 endsnippet
 
-snippet xpathr "replace"
+snippet xpr "xpath replace"
 <xpath expr="//field[@${1:name}='${2:field}']" position="replace">
     <field name="$2"/>
 </xpath>
+
 endsnippet
 
-snippet xpathi "inside"
+snippet xpi "xpath inside"
 <xpath expr="//notebook" position="inside">
     <page string="${1:text}">
     <field name="${2:name}"/>
     </page>
 </xpath>
+
 endsnippet
 
-snippet xpathat "attribute"
+snippet xpat "xpath attribute"
 <xpath expr="//field[@${1:name}='${2:field}']" position="attributes">
     <attribute name="${3:required}">${4:1}</attribute>
 </xpath>
+
 endsnippet
 
-snippet widget "selection"
+snippet wgs "widget selection"
 widget="selection"
+
 endsnippet
 
-snippet widget "float_time"
+snippet wgf "widget float_time"
 widget="float_time"
+
 endsnippet
 
-snippet widget "url"
+snippet wgu "widget url"
 widget="url"
+
 endsnippet
 
-snippet widget "progressbar"
+snippet wgp "widget progressbar"
 widget="progressbar"
+
 endsnippet
 
-snippet widget "many2many"
+snippet wgm "widget many2many_tag"
 widget="many2many"
+
 endsnippet
 
-snippet widget "one2many_list"
-widget="one2many_list"
-endsnippet
-
-snippet widget "password"
+snippet wgps "widget password"
 password="1"
-endsnippet
 
-snippet test "<test expr=''/>"
-<test expr="len(${1:one2many}) == ${2:1}"/>
-endsnippet
-
-snippet test "<test expr=''></test>"
-<test expr="${1:state}">${2:confirmed}</test>
-endsnippet
-
-snippet assert "id"
-<assert id="${1:ir_model_data}" model="${2:sale.order}" severity="${3:error}"
-        string="${4:Text appear when an error raise}">
-$0
-</assert>
-endsnippet
-
-snippet assert "search"
-<assert search="[('${1:name}','${2:=}','${3:TEXT}')]" model="${4:sale.order}" severity="${5:error}" count="${6:1}"
-        string="${7:Text appear when an error raise}">
-$0
-</assert>
-endsnippet
-
-snippet workflow "ref"
-<workflow action="${1:button_confirm}" model="${2:sale.order}" ref="${3:ir_model_data}"/>
-endsnippet
-
-snippet workflow "search"
-<workflow action="${1:button_confirm}" model="${2:sale.order}">
-    <value model="$2" search="[('${3:name}','${4:=}','${5:TEXT}')]"/>
-</worklow>
-endsnippet
-
-snippet delete "id"
-<delete model="${1:model}" id="${2:ir_model_data}"/>
-endsnippet
-
-snippet delete "search"
-<delete model="${1:model}" search="[('${2:field}', '${3:operator}', '${4:value}')]"/>
-endsnippet
-
-snippet icon "gtk-apply"
-icon="gtk-apply"
-endsnippet
-
-snippet icon "gtk-cancel"
-icon="gtk-cancel"
-endsnippet
-
-snippet icon "gtk-close"
-icon="gtk-close"
-endsnippet
-
-snippet icon "gtk-convert"
-icon="gtk-convert"
-endsnippet
-
-snippet icon "gtk-execute"
-icon="gtk-execute"
-endsnippet
-
-snippet icon "gtk-go-forward"
-icon="gtk-go-forward"
-endsnippet
-
-snippet icon "gtk-jump-to"
-icon="gtk-jump-to"
-endsnippet
-
-snippet icon "gtk-media-pause"
-icon="gtk-media-pause"
-endsnippet
-
-snippet icon "gtk-ok"
-icon="gtk-ok"
-endsnippet
-
-snippet icon "gtk-print"
-icon="gtk-print"
 endsnippet
