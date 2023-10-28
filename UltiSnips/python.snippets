@@ -64,12 +64,11 @@ snippet module
     "name": "${1:Module name}",
     "summary": "${2:Module summary}",
     "version": "${3:14.0}.1.0.0",
+    "development_status": "Alpha",
     "category": "${4:Uncategorized}",
     "website": "${5:www.akretion.com}",
     "author": "${6: Akretion}",
     "license": "AGPL-3",
-    "application": False,
-    "installable": True,
     "external_dependencies": {
         "python": [],
         "bin": [],
@@ -81,8 +80,6 @@ snippet module
     ],
     "demo": [${9}
     ],
-    "qweb": [${10}
-    ]
 }
 endsnippet
 
@@ -289,42 +286,32 @@ ${3:Priority}),
 #
 endsnippet
 
-snippet func "def search"
-def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
-    """
-    ${1:Comment}
-    """
-    if context is None:
-        context = {}
-
-    res = super(${2:ClassName}, self).search(cr, uid, args, offset=offset, limit=limit, order=order, context=context, count=count)
-    ${3}
+snippet fsearch "def search"
+def search(self, args, offset=0, limit=None, order=None, count=False):
+    res = super().search(args, offset=offset, limit=limit, order=order, count=count)
     return res
 endsnippet
 
-snippet func "def read"
-def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
-    if context is None:
-        context = {}
-${1}
-    res = super(${2:ClassName}, self).read(cr, uid, ids, fields, context=context)
-    ${3}
+snippet fread "def read"
+def read(self, fields=None, load='_classic_read'):
+    res = super().read(fields=fields, load=load)
     return res
 endsnippet
 
 snippet fcreate "def create"
-def create(self, vals):
+@api.model_create_multi
+def create(self, list_vals):
     ${1}
-    record = super(${2:ClassName}, self).create(vals)
-    ${3}
-    return record
+    records = super().create(list_vals)
+    ${2}
+    return records
 endsnippet
 
 snippet fwrite "def write"
 def write(self, vals):
     ${1}
-    res = super(${2:ClassName}, self).write(vals)
-    ${3}
+    res = super().write(vals)
+    ${2}
     return res
 endsnippet
 
