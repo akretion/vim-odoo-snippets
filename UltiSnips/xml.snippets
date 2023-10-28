@@ -399,7 +399,7 @@ snippet view_tfa "both (tree, form) + Action + Menu"
     </field>
 </record>
 
-<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_action">
+<record model="ir.actions.act_window" id="`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">$2</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">$1</field>
@@ -464,7 +464,7 @@ snippet view_tfsa "both (tree, form, search) + Action + Menu"
 endsnippet
 
 snippet act_window
-<record model="ir.actions.act_window" id="act_open_`!p snip.rv=format_snake(t[1])`_action">
+<record model="ir.actions.act_window" id="`!p snip.rv=format_snake(t[1])`_action">
     <field name="name">${2:Name}</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">${1:model_name}</field>
